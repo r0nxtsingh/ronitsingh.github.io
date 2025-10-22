@@ -201,116 +201,12 @@ index=web sourcetype=access_combined (method=POST OR method=PUT) uri_path=* OR u
    * Submit `3791.exe` and `MirandaTateScreensaver.scr.exe` to malware analysis tools (e.g., VirusTotal, in-house sandbox).
    * Share IoCs with relevant threat-sharing groups or your internal Intel team.
 
----
 
-## Appendices
 
-### A — Splunk Saved Searches / Alerts (Examples)
 
-**High-rate web scanner detection (saved search):**
-```
-index=web sourcetype=access_combined
-| stats count BY clientip, useragent
-| where count > 500 AND match(useragent, "(?i)acunetix|nikto|sqlmap|nessus")
-```
 
-**Brute-force detection (alert):**
-```
-index=auth
-| stats count BY src_ip, user
-| where count > 50
-```
 
-### B — Evidence Collection Checklist
 
-* Export relevant Splunk search results as CSV (include timestamps).
-* Download the suspicious file(s) from host if available and submit to sandbox/VT.
-* Preserve full disk images and memory snapshots if legal/policy allows.
-* Collect process lists, autoruns, and scheduled tasks from the compromised host.
-
-### C — Resume Bullet (Ready-made)
-
-```
-Investigated and remediated a simulated webserver compromise in the "Incident Handling with Splunk" lab: performed log triage across web, authentication and Sysmon logs; mapped attacker activity to the Cyber Kill Chain; extracted IoCs (IPs: 40.80.148.42, 23.22.63.114; hashes: c99131e0169171935c5ac32615ed6261); created Splunk detection queries and remediation recommendations.```
-
----
-
-## GitHub README (Ready-to-use)
-
-> Place this `README.md` at the root of a dedicated repo `incident-handling-splunk-ronit`.
-
-```
-# Incident Handling with Splunk — Lab Report (Ronit)
-
-This repository contains a full writeup of the TryHackMe "Incident Handling with Splunk" lab completed by Ronit. It includes details of the investigation, Splunk queries used, IoCs, remediation steps and a concise timeline.
-
-## Contents
-- `writeup.md` — Lab report and findings.
-- `splunk-queries.md` — Ready-to-run Splunk queries and saved-search examples.
-- `iocs.csv` — Indicators of Compromise (IPs, domains, hashes).
-- `screenshots/` — (Optional) Screenshots exported from Splunk for evidence.
-
-## How to use
-1. Review `writeup.md` for the investigation narrative.
-2. Import `splunk-queries.md` into your Splunk instance and tailor sourcetypes/indexes.
-3. Add the IoCs from `iocs.csv` into your blocklists and detection rules.
-
-## Contact
-Ronit — add contact/email here.
-```
-
----
-
-## LinkedIn Post (Short & Professional) — Ready to Copy
-
-> *Suggested post copy for sharing the lab completion on LinkedIn.*
-
-```
-Excited to share that I completed the "Incident Handling with Splunk" lab on TryHackMe. As a SOC Analyst I investigated a simulated webserver compromise, mapped the attacker actions to the Cyber Kill Chain, extracted IoCs (IP addresses, domains, file hashes), and built Splunk detection queries to detect and prevent similar attacks. Details and a full writeup are available on my GitHub: <REPO_LINK>
-
-If you're interested in Splunk-based investigations or SOC playbooks, let's connect!
-```
-
----
-
-## How I suggest you publish this (step-by-step)
-
-1. **Create GitHub repo**
-   * Repo name: `incident-handling-splunk-ronit`.
-   * Add files: `writeup.md` (this full writeup), `splunk-queries.md`, `iocs.csv`, `README.md`, and any screenshots.
-   * Commit message example: `feat: add Incident Handling with Splunk lab writeup and IoCs`
-
-2. **Push to GitHub**
-
-```bash
-git init
-git add .
-git commit -m "feat: add Incident Handling with Splunk lab writeup and IoCs"
-git branch -M main
-git remote add origin https://github.com/<your-username>/incident-handling-splunk-ronit.git
-git push -u origin main
-```
-
-3. **Share on LinkedIn**
-   * Copy the LinkedIn post content above and paste into a new LinkedIn post. Attach the GitHub repo link and optionally a screenshot of your Splunk timeline.
-
-4. **Optional — Gist & Resume**
-   * Create a GitHub Gist for `splunk-queries.md` to make the queries easily shareable.
-   * Add the resume bullet in your CV under the relevant job/project section and push an updated resume to your GitHub repo.
-
----
-
-## Legal & Ethics Note
-
-This writeup documents a simulated lab environment. Do not use the techniques or IoCs to attack systems that you do not own or have explicit permission to test. Always follow your organization's policies and applicable laws when performing investigations or active response.
-
----
-
-## Next Steps (If you'd like me to do more)
-
-* I can convert these Splunk queries into saved-search JSON you can import into Splunk.
-* I can build a `splunk-queries.md` file with copy-paste queries and alert configurations.
-* I can generate a polished `README.md` and `iocs.csv` files for direct upload to GitHub.
 
 
 
